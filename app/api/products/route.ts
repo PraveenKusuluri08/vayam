@@ -25,7 +25,24 @@ export async function GET(request: NextRequest) {
     });
 
     // Transform to match frontend Product type
-    const transformedProducts = products.map((product) => ({
+    const transformedProducts = products.map((product: {
+      id: string;
+      slug: string;
+      name: string;
+      category: string;
+      subcategory: string;
+      price: number;
+      startingPrice: number | null;
+      description: string;
+      features: string[];
+      specifications: any;
+      images: string[];
+      inStock: boolean;
+      tags: string[];
+      weight: string | null;
+      material: string | null;
+      purity: string | null;
+    }) => ({
       id: product.id,
       slug: product.slug,
       name: product.name,
