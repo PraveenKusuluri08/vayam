@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { cookies } from "next/headers";
+import { Prisma } from "@prisma/client";
 
 // Helper to get or create cart
 async function getOrCreateCart(userId?: string, sessionId?: string) {
@@ -128,16 +129,37 @@ export async function GET(request: NextRequest) {
 
     const cart = await getOrCreateCart(userId, sessionId);
 
+    type CartWithItems = Prisma.CartGetPayload<{
+      include: {
+        items: {
+          include: {
+            product: {
+              select: {
+                id: true;
+                name: true;
+                price: true;
+                images: true;
+                slug: true;
+                inStock: true;
+              };
+            };
+          };
+        };
+      };
+    }>;
+
+    const typedCart = cart as CartWithItems;
+
     return NextResponse.json({
-      id: cart.id,
-      items: cart.items.map((item) => ({
+      id: typedCart.id,
+      items: typedCart.items.map((item: typeof typedCart.items[0]) => ({
         id: item.id,
         product: item.product,
         quantity: item.quantity,
         price: item.product.price,
       })),
-      total: cart.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
-      itemCount: cart.items.reduce((sum, item) => sum + item.quantity, 0),
+      total: typedCart.items.reduce((sum: number, item: typeof typedCart.items[0]) => sum + item.product.price * item.quantity, 0),
+      itemCount: typedCart.items.reduce((sum: number, item: typeof typedCart.items[0]) => sum + item.quantity, 0),
     });
   } catch (error: any) {
     console.error("Error fetching cart:", error);
