@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { Package, Eye, Download, Truck, CheckCircle, Clock, XCircle } from "lucide-react";
 import { formatCurrency } from "@/lib/utils";
@@ -98,7 +99,7 @@ export default function OrdersSection() {
       {orders.length === 0 ? (
         <div className="text-center py-12">
           <Package className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-600 mb-4">You haven't placed any orders yet</p>
+          <p className="text-gray-600 mb-4">You haven&apos;t placed any orders yet</p>
           <Link
             href="/#products"
             className="inline-block px-6 py-2 gradient-gold text-white rounded-lg font-semibold hover:shadow-lg transition-all"
@@ -152,12 +153,14 @@ export default function OrdersSection() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                   {order.orderItems.slice(0, 3).map((item) => (
                     <div key={item.id} className="flex items-center space-x-3">
-                      <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
+                      <div className="relative w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
                         {item.product.images && item.product.images[0] ? (
-                          <img
+                          <Image
                             src={item.product.images[0]}
                             alt={item.product.name}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
+                            sizes="64px"
                           />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center">

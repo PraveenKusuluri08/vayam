@@ -33,10 +33,6 @@ export default function ProductDetailPage() {
   const [wishlisted, setWishlisted] = useState(false);
   const inWishlist = product ? isInWishlist(product.id) : false;
 
-  useEffect(() => {
-    fetchProduct();
-  }, [params.id]);
-
   const fetchProduct = async () => {
     try {
       const response = await fetch(`/api/products/${params.id}`);
@@ -55,6 +51,11 @@ export default function ProductDetailPage() {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [params.id]);
 
   if (loading) {
     return (
