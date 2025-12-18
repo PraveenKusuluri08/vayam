@@ -122,3 +122,4 @@ When you visit the homepage:
 Even without images, you'll see beautiful product cards with all the information. Just add your product images when ready!
 
 
+

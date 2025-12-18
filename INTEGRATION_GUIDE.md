@@ -565,3 +565,4 @@ NEXTAUTH_URL=http://localhost:3000
 **Note**: This is a guide for future implementation. The current codebase is structured to easily accommodate these features.
 
 
+

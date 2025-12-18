@@ -34,7 +34,7 @@ export default function FeaturedProducts() {
 
   if (loading) {
     return (
-      <section id="products" className="py-16 bg-gradient-to-b from-white to-gray-50">
+      <section id="products" className="py-16 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-600 mx-auto"></div>
@@ -46,38 +46,68 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section id="products" className="py-16 bg-gradient-to-b from-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="products" className="py-20 bg-transparent relative overflow-hidden">
+      {/* Decorative background elements */}
+      <div className="absolute inset-0 opacity-5 pointer-events-none">
+        <div className="absolute top-40 right-20 w-96 h-96 bg-gold-400 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-40 left-20 w-80 h-80 bg-gold-300 rounded-full blur-3xl"></div>
+      </div>
+      
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-center mb-16"
         >
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <Star className="w-8 h-8 text-gold-500 fill-gold-500" />
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy-900">
+          <motion.div 
+            className="flex items-center justify-center space-x-4 mb-8"
+            initial={{ scale: 0.8, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
+          >
+            <motion.div
+              animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.1, 1] }}
+              transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+            >
+              <Star className="w-12 h-12 md:w-14 md:h-14 text-gold-500 fill-gold-500 drop-shadow-lg" />
+            </motion.div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 bg-clip-text text-transparent">
               The Precious Choices
             </h2>
-            <Star className="w-8 h-8 text-gold-500 fill-gold-500" />
-          </div>
-          <div className="w-32 h-1 gradient-gold mx-auto mb-6 rounded-full" />
-          <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            <motion.div
+              animate={{ rotate: [0, -15, 15, 0], scale: [1, 1.1, 1] }}
+              transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
+            >
+              <Star className="w-12 h-12 md:w-14 md:h-14 text-gold-500 fill-gold-500 drop-shadow-lg" />
+            </motion.div>
+          </motion.div>
+          
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "150px" }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="text-xl text-navy-700 max-w-3xl mx-auto mb-2"
+            transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+            className="h-1.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-8 rounded-full"
+          />
+          
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-xl md:text-2xl text-navy-700 max-w-3xl mx-auto mb-3 font-medium"
           >
             Starts at ₹2,000. Premium products crafted with excellence.
           </motion.p>
           <motion.p
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            className="text-lg text-gray-600 max-w-2xl mx-auto italic"
+            transition={{ delay: 0.5, duration: 0.6 }}
+            className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto italic font-light"
           >
             You Imagine, We Create. At your Budget, Tailored to your needs!
           </motion.p>
@@ -85,13 +115,13 @@ export default function FeaturedProducts() {
 
         {products.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-600">No products available at the moment.</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Please run <code className="bg-gray-100 px-2 py-1 rounded">npm run db:seed</code> to seed products.
+            <p className="text-xl text-gray-600 mb-4">Products are being loaded...</p>
+            <p className="text-gray-500">
+              Please check back soon or contact us for more information.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
             {products.map((product, index) => (
               <ProductCard key={product.id} product={product} index={index} />
             ))}

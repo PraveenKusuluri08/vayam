@@ -1,6 +1,7 @@
 import HeroBanner from "@/components/HeroBanner";
 import CategorySection from "@/components/CategorySection";
-import DealsSection from "@/components/DealsSection";
+import NewArrivalsSection from "@/components/NewArrivalsSection";
+import BestSellerSection from "@/components/BestSellerSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -10,17 +11,26 @@ import CallToActionSection from "@/components/CallToActionSection";
 
 export default function Home() {
   return (
-    <>
-      {/* Hero Banner with Carousel - Amazon Style */}
+    <div className="relative">
+      {/* Hero Banner with Carousel */}
       <HeroBanner />
       
-      {/* Category Navigation - Amazon Style */}
+      {/* Category Navigation */}
       <CategorySection />
       
-      {/* Featured/Deals Section - Amazon Style */}
-      <DealsSection />
+      {/* New Arrivals - Gold */}
+      <NewArrivalsSection category="gold" title="GOLD" />
       
-      {/* All Products Grid - Amazon Style */}
+      {/* New Arrivals - Diamond */}
+      <NewArrivalsSection category="diamond" title="DIAMOND" />
+      
+      {/* New Arrivals - Silver */}
+      <NewArrivalsSection category="silver" title="SILVER" />
+      
+      {/* Best Seller Collection */}
+      <BestSellerSection />
+      
+      {/* All Products Grid */}
       <FeaturedProducts />
       
       {/* Why Choose Us Section */}
@@ -37,6 +47,6 @@ export default function Home() {
       
       {/* Call to Action */}
       <CallToActionSection />
-    </>
+    </div>
   );
 }

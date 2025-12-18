@@ -57,7 +57,7 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-white pt-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -104,9 +104,11 @@ export default function ProductsPage() {
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20">
             <p className="text-xl text-gray-600 mb-2">
-              No products found in this category.
+              {products.length === 0 
+                ? "Products are being loaded. Please check back soon."
+                : "No products found in this category."}
             </p>
-            {selectedCategory !== "all" && (
+            {selectedCategory !== "all" && products.length > 0 && (
               <button
                 onClick={() => setSelectedCategory("all")}
                 className="text-gold-600 hover:text-gold-700 font-medium"

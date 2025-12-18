@@ -80,25 +80,40 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 50, scale: 0.9 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ delay: index * 0.1, duration: 0.5 }}
-      whileHover={{ y: -10 }}
+      transition={{ 
+        delay: index * 0.1, 
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100
+      }}
+      whileHover={{ y: -16 }}
       className="group"
     >
-      <div className="bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-200 h-full flex flex-col">
+      <motion.div 
+        className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-700 overflow-hidden border border-gray-200/50 hover:border-gold-400/60 h-full flex flex-col relative group/card"
+        whileHover={{ scale: 1.02, y: -8 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      >
         {/* Image Container */}
         <Link href={`/products/${product.id}`}>
-          <div className="relative h-56 md:h-64 bg-gradient-to-br from-gold-50 to-silver-50 overflow-hidden cursor-pointer">
+          <div className="relative h-72 md:h-80 lg:h-96 bg-gradient-to-br from-gray-100 to-gray-50 overflow-hidden cursor-pointer">
             {product.images && product.images.length > 0 && product.images[0] ? (
-              <ProductImage
-                src={product.images[0]}
-                alt={product.name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-500"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
+              <motion.div
+                className="absolute inset-0"
+                whileHover={{ scale: 1.2, rotate: 1 }}
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+              >
+                <ProductImage
+                  src={product.images[0]}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </motion.div>
             ) : (
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                 <Sparkles className="w-16 h-16 text-gold-400 mb-2" />
@@ -124,43 +139,61 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               </span>
             </div>
 
-            {/* Hover Overlay */}
-            <div className="absolute inset-0 bg-navy-900/0 group-hover:bg-navy-900/20 transition-colors duration-300 flex items-center justify-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileHover={{ opacity: 1, scale: 1 }}
-                className="opacity-0 group-hover:opacity-100 transition-opacity"
+            {/* Subtle Overlay - Swashaa Style */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/0 via-black/0 to-black/0 group-hover:from-black/10 group-hover:via-black/5 group-hover:to-black/0 transition-all duration-500" />
+            
+            {/* Quick Action Button - Appears on Hover */}
+            <motion.div
+              className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20"
+              initial={{ scale: 0, rotate: -180 }}
+              whileHover={{ scale: 1.15, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 250, damping: 15 }}
+            >
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                className="bg-white/95 backdrop-blur-sm rounded-full p-2.5 shadow-2xl hover:shadow-3xl border border-white/50"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = `/products/${product.id}`;
+                }}
+                aria-label="Quick view"
               >
-                <div className="bg-white rounded-full p-4">
-                  <ArrowRight className="w-6 h-6 text-gold-600" />
-                </div>
-              </motion.div>
-            </div>
+                <ArrowRight className="w-4 h-4 text-gold-600" />
+              </motion.button>
+            </motion.div>
+            
+            {/* Shimmer Effect on Hover */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent -skew-x-12 opacity-0 group-hover:opacity-100 pointer-events-none"
+              initial={{ x: "-150%" }}
+              whileHover={{ x: "200%" }}
+              transition={{ duration: 0.7, ease: "easeInOut" }}
+            />
           </div>
         </Link>
 
         {/* Content */}
-        <div className="p-4 flex-1 flex flex-col">
+        <div className="p-6 flex-1 flex flex-col bg-gradient-to-b from-white to-gray-50/50">
           <Link href={`/products/${product.id}`}>
-            <h3 className="text-lg font-semibold text-navy-900 mb-2 group-hover:text-gold-600 transition-colors cursor-pointer line-clamp-2 min-h-[3rem]">
+            <h3 className="text-xl md:text-2xl font-semibold text-navy-900 mb-4 group-hover:text-gold-600 transition-colors cursor-pointer line-clamp-2 min-h-[3.5rem] leading-tight">
               {product.name}
             </h3>
           </Link>
-            <p className="text-gray-600 text-sm mb-3 line-clamp-2 flex-1">
+            <p className="text-gray-600 text-base mb-4 line-clamp-2 flex-1">
               {product.description}
             </p>
 
             {/* Price */}
-            <div className="mb-3">
+            <div className="mb-4">
               {product.startingPrice ? (
                 <div>
-                  <p className="text-xs text-gray-500 mb-1">Starts at</p>
-                  <p className="text-xl font-bold text-gold-600">
+                  <p className="text-sm text-gray-500 mb-1">Starts at</p>
+                  <p className="text-2xl md:text-3xl font-bold text-gold-600">
                     {formatCurrency(product.startingPrice)}
                   </p>
                 </div>
               ) : (
-                <p className="text-xl font-bold text-gold-600">
+                <p className="text-2xl md:text-3xl font-bold text-gold-600">
                   {formatCurrency(product.price)}
                 </p>
               )}
@@ -173,10 +206,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
             {/* Features Preview */}
             {product.features && product.features.length > 0 && (
-              <ul className="space-y-1 mb-3">
+              <ul className="space-y-2 mb-4">
                 {product.features.slice(0, 2).map((feature, idx) => (
-                  <li key={idx} className="flex items-start text-xs text-gray-600">
-                    <span className="w-1.5 h-1.5 bg-gold-400 rounded-full mr-2 mt-1.5 flex-shrink-0" />
+                  <li key={idx} className="flex items-start text-sm text-gray-600">
+                    <span className="w-2 h-2 bg-gold-400 rounded-full mr-3 mt-2 flex-shrink-0" />
                     <span className="line-clamp-1">{feature}</span>
                   </li>
                 ))}
@@ -189,7 +222,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={adding || !product.inStock}
-                className={`w-full py-2.5 rounded-md font-semibold transition-all shadow-md hover:shadow-lg text-sm flex items-center justify-center space-x-2 ${
+                className={`w-full py-3 rounded-md font-semibold transition-all shadow-md hover:shadow-lg text-base flex items-center justify-center space-x-2 ${
                   added
                     ? "bg-green-500 text-white"
                     : product.inStock
@@ -223,7 +256,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-full py-2 border border-gray-300 text-gray-700 rounded-md font-medium hover:border-gold-500 hover:text-gold-600 transition-colors text-sm"
+                    className="w-full py-2.5 border border-gray-300 text-gray-700 rounded-md font-medium hover:border-gold-500 hover:text-gold-600 transition-colors text-base"
                   >
                     View Details
                   </motion.button>
@@ -245,7 +278,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               </div>
             </div>
           </div>
-      </div>
+      </motion.div>
     </motion.div>
   );
 }

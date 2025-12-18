@@ -18,6 +18,7 @@ import Link from "next/link";
 import { useCart } from "@/contexts/CartContext";
 import { useWishlist } from "@/contexts/WishlistContext";
 import { useSession } from "next-auth/react";
+import ProductCard from "@/components/ProductCard";
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -31,6 +32,8 @@ export default function ProductDetailPage() {
   const [added, setAdded] = useState(false);
   const [wishlisting, setWishlisting] = useState(false);
   const [wishlisted, setWishlisted] = useState(false);
+  const [similarProducts, setSimilarProducts] = useState<Product[]>([]);
+  const [loadingSimilar, setLoadingSimilar] = useState(false);
   const inWishlist = product ? isInWishlist(product.id) : false;
 
   const fetchProduct = async () => {
@@ -52,10 +55,36 @@ export default function ProductDetailPage() {
     }
   };
 
+  const fetchSimilarProducts = async (category: string, excludeId: string) => {
+    try {
+      setLoadingSimilar(true);
+      const response = await fetch(`/api/products?category=${category}`);
+      if (response.ok) {
+        const data = await response.json();
+        // Filter out the current product and limit to 8 similar products
+        const similar = data
+          .filter((p: Product) => p.id !== excludeId)
+          .slice(0, 8);
+        setSimilarProducts(similar);
+      }
+    } catch (error) {
+      console.error("Error fetching similar products:", error);
+    } finally {
+      setLoadingSimilar(false);
+    }
+  };
+
   useEffect(() => {
     fetchProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params.id]);
+
+  useEffect(() => {
+    if (product) {
+      fetchSimilarProducts(product.category, product.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product]);
 
   if (loading) {
     return (
@@ -87,8 +116,10 @@ export default function ProductDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white pt-20">
+    <div className="min-h-screen pt-20 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Main Product Details - White Background for Readability */}
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl mb-12">
         {/* Back Button */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -397,6 +428,65 @@ export default function ProductDetailPage() {
             )}
           </motion.div>
         </div>
+        </div>
+
+        {/* Similar Products Section */}
+        {similarProducts.length > 0 && (
+          <motion.section
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mt-24 pt-16 border-t border-amber-100/30 relative overflow-hidden"
+          >
+            {/* Decorative background */}
+            <div className="absolute inset-0 opacity-5 pointer-events-none">
+              <div className="absolute top-20 right-20 w-96 h-96 bg-gold-400 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-20 left-20 w-80 h-80 bg-gold-300 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 bg-clip-text text-transparent mb-4">
+                You May Also Like
+              </h2>
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: "150px" }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, duration: 0.8 }}
+                className="h-1.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto rounded-full"
+              />
+              <p className="text-gray-600 text-lg mt-6">
+                Discover more products in this collection
+              </p>
+            </motion.div>
+
+            {loadingSimilar ? (
+              <div className="text-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gold-600 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Loading similar products...</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
+                {similarProducts.map((similarProduct, index) => (
+                  <ProductCard
+                    key={similarProduct.id}
+                    product={similarProduct}
+                    index={index}
+                  />
+                ))}
+              </div>
+            )}
+            </div>
+          </motion.section>
+        )}
       </div>
     </div>
   );

@@ -194,17 +194,8 @@ export async function POST(request: NextRequest) {
 
     if (!product) {
       console.error(`Product not found: ${productId}`);
-      // List available products for debugging
-      const allProducts = await prisma.product.findMany({
-        select: { id: true, slug: true, name: true },
-        take: 5,
-      });
-      console.log("Available products in database:", allProducts);
       return NextResponse.json(
-        { 
-          error: `Product not found: ${productId}. Please ensure products are seeded in the database.`,
-          availableProducts: allProducts 
-        },
+        { error: "Product not found. Please try again later." },
         { status: 404 }
       );
     }

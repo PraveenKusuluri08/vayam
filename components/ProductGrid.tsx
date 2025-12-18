@@ -9,12 +9,13 @@ interface ProductGridProps {
 
 export default function ProductGrid({ products }: ProductGridProps) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 max-w-[1600px] mx-auto">
       {products.map((product, index) => (
         <ProductCard key={product.id} product={product} index={index} />
       ))}
     </div>
   );
 }
+
 
 

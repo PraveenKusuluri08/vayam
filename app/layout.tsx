@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PromotionalBanner from "@/components/PromotionalBanner";
 import SessionProvider from "@/components/providers/SessionProvider";
 import { CartProvider } from "@/contexts/CartContext";
 import { WishlistProvider } from "@/contexts/WishlistContext";
@@ -41,7 +42,8 @@ export default function RootLayout({
             <CartProvider>
               <WishlistProvider>
                 <Navigation />
-                <main className="min-h-screen pt-0">{children}</main>
+                <PromotionalBanner />
+                <main className="min-h-screen pt-[145px] md:pt-[161px]">{children}</main>
                 <Footer />
               </WishlistProvider>
             </CartProvider>
