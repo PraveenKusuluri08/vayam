@@ -24,13 +24,13 @@ export default function NewArrivalsSection({ category, title }: NewArrivalsSecti
     try {
       const response = await fetch(`/api/products?category=${category}`);
       if (response.ok) {
-        const data = await response.json();
-        let productsToShow = data.slice(0, 6) || [];
+        const data: Product[] = await response.json();
+        let productsToShow: Product[] = data.slice(0, 6) || [];
         
         // Duplicate products for gold and diamond to show more cards
         if ((category === "gold" || category === "diamond") && productsToShow.length > 0) {
           // Duplicate the products array 2-3 times to fill more space
-          const duplicatedProducts = [];
+          const duplicatedProducts: Product[] = [];
           for (let i = 0; i < 3; i++) {
             productsToShow.forEach((product, idx) => {
               duplicatedProducts.push({
