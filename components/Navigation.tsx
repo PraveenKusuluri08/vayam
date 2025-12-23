@@ -110,10 +110,10 @@ export default function Navigation() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={cn(
-        "fixed left-0 right-0 z-50 transition-all duration-300",
+        "fixed left-0 right-0 z-[60] transition-all duration-300 font-montserrat",
         isScrolled
-          ? "top-0 bg-white shadow-lg border-b border-gold-200"
-          : "top-0 bg-white/95 backdrop-blur-md"
+          ? "top-0 bg-white shadow-sm border-b border-gray-200"
+          : "top-0 bg-white border-b border-gray-100"
       )}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +126,7 @@ export default function Navigation() {
             >
               <div className="relative w-10 h-10 md:w-12 md:h-12 rounded-xl overflow-hidden shadow-lg border border-gold-200 bg-white">
                 <Image
-                  src="/images/products/logo.jpeg"
+                  src="/images/products/logo_vayam.jpeg"
                   alt="Vayam logo"
                   fill
                   className="object-cover"
@@ -135,10 +135,10 @@ export default function Navigation() {
               </div>
             </motion.div>
             <div>
-              <h1 className="text-2xl font-serif font-bold text-navy-900 group-hover:text-gold-600 transition-colors">
+              <h1 className="text-2xl font-montserrat font-extrabold text-navy-900 group-hover:text-gold-600 transition-colors">
                 VAYAM
               </h1>
-              <p className="text-xs text-gray-600 italic hidden sm:block">
+              <p className="text-xs text-gray-600 italic hidden sm:block font-montserrat font-medium">
                 Let&apos;s shine together!
               </p>
             </div>
@@ -155,7 +155,7 @@ export default function Navigation() {
               >
                 <Link
                   href={item.href || "#"}
-                  className="flex items-center space-x-1 px-4 py-2 text-navy-700 hover:text-gold-600 font-medium transition-colors relative group"
+                  className="flex items-center space-x-1 px-4 py-2 text-navy-700 hover:text-gold-600 font-semibold transition-colors relative group"
                 >
                   <span>{item.label}</span>
                   {item.submenu && (
@@ -178,7 +178,7 @@ export default function Navigation() {
                         <Link
                           key={subItem.label}
                           href={subItem.href}
-                          className="block px-4 py-2 text-sm text-navy-700 hover:bg-gold-50 hover:text-gold-600 transition-colors"
+                          className="block px-4 py-2 text-sm text-navy-700 hover:bg-gold-50 hover:text-gold-600 font-medium transition-colors"
                         >
                           {subItem.label}
                         </Link>
@@ -235,7 +235,7 @@ export default function Navigation() {
                   aria-label="Account"
                 >
                   <User className="w-6 h-6" />
-                  <span className="hidden md:inline text-sm font-medium">
+                  <span className="hidden md:inline text-sm font-semibold">
                     {session.user?.name || session.user?.email}
                   </span>
                 </motion.button>
@@ -248,7 +248,7 @@ export default function Navigation() {
                       className="absolute right-0 mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50"
                     >
                       <div className="px-4 py-2 border-b border-gray-200">
-                        <p className="text-sm font-semibold text-navy-900">
+                        <p className="text-sm font-bold text-navy-900">
                           {session.user?.name}
                         </p>
                         <p className="text-xs text-gray-600">{session.user?.email}</p>
@@ -279,13 +279,13 @@ export default function Navigation() {
               <>
                 <Link
                   href="/auth/signin"
-                  className="hidden md:block px-4 py-2 text-navy-700 hover:text-gold-600 font-medium transition-colors"
+                  className="hidden md:block px-4 py-2 text-navy-700 hover:text-gold-600 font-semibold transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="hidden md:block px-4 py-2 gradient-gold text-white rounded-md font-semibold shadow-md hover:shadow-lg transition-all"
+                  className="hidden md:block px-4 py-2 gradient-gold text-white rounded-md font-bold shadow-md hover:shadow-lg transition-all"
                 >
                   Sign Up
                 </Link>
@@ -348,7 +348,7 @@ export default function Navigation() {
                     onClick={() => {
                       if (!item.submenu) setIsMobileMenuOpen(false);
                     }}
-                    className="flex items-center justify-between text-navy-700 hover:text-gold-600 font-medium transition-colors py-2"
+                    className="flex items-center justify-between text-navy-700 hover:text-gold-600 font-semibold transition-colors py-2"
                   >
                     <span>{item.label}</span>
                     {item.submenu && (
@@ -362,7 +362,7 @@ export default function Navigation() {
                           key={subItem.label}
                           href={subItem.href}
                           onClick={() => setIsMobileMenuOpen(false)}
-                          className="block text-sm text-gray-600 hover:text-gold-600 py-1"
+                          className="block text-sm text-gray-600 hover:text-gold-600 font-medium py-1"
                         >
                           {subItem.label}
                         </Link>
@@ -375,7 +375,7 @@ export default function Navigation() {
                 <Link
                   href="/cart"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center space-x-2 text-navy-700 hover:text-gold-600 font-medium py-2"
+                  className="flex items-center space-x-2 text-navy-700 hover:text-gold-600 font-semibold py-2"
                 >
                   <ShoppingCart className="w-5 h-5" />
                   <span>Cart {itemCount > 0 && `(${itemCount})`}</span>
@@ -385,14 +385,14 @@ export default function Navigation() {
                     <Link
                       href="/auth/signin"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block text-navy-700 hover:text-gold-600 font-medium py-2"
+                      className="block text-navy-700 hover:text-gold-600 font-semibold py-2"
                     >
                       Sign In
                     </Link>
                     <Link
                       href="/auth/signup"
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block w-full px-6 py-2 gradient-gold text-white rounded-full font-semibold text-center shadow-lg"
+                      className="block w-full px-6 py-2 gradient-gold text-white rounded-full font-bold text-center shadow-lg"
                     >
                       Sign Up
                     </Link>

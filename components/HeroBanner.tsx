@@ -69,10 +69,10 @@ export default function HeroBanner() {
   };
 
   return (
-    <section className="relative h-[520px] md:h-[620px] lg:h-[680px] overflow-hidden bg-black">
+    <section className="relative h-[600px] md:h-[700px] lg:h-[750px] xl:h-[850px] overflow-hidden bg-black z-0 -mt-[105px] md:-mt-[121px]">
       {/* Sub‑header promo strip */}
-      <div className="absolute top-0 inset-x-0 z-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4">
+      <div className="absolute top-[120px] md:top-[130px] inset-x-0 z-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 backdrop-blur-md border border-white/20">
             <BadgePercent className="w-3 h-3 text-gold-300" />
             <p className="text-xs text-white">
@@ -83,7 +83,7 @@ export default function HeroBanner() {
       </div>
 
       {/* Carousel Container */}
-      <div className="relative h-full pt-10 md:pt-12">
+      <div className="relative h-full">
         {carouselSlides.map((slide, index) => (
           <motion.div
             key={slide.id}
@@ -109,33 +109,13 @@ export default function HeroBanner() {
                   alt={slide.title}
                   fill
                   priority={index === 0}
-                  className="object-cover"
+                  className="object-cover object-center"
+                  sizes="100vw"
+                  quality={90}
                 />
               </motion.div>
-              {/* Animated Gradient overlay - Enhanced */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/40"
-                animate={{
-                  opacity: index === currentSlide ? 1 : 0,
-                }}
-                transition={{ duration: 0.5 }}
-              />
-              
-              {/* Animated shimmer effect */}
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12"
-                animate={{
-                  x: index === currentSlide ? ["-200%", "200%"] : "-200%",
-                }}
-                transition={{
-                  x: {
-                    duration: 3,
-                    repeat: Infinity,
-                    repeatDelay: 2,
-                    ease: "easeInOut",
-                  },
-                }}
-              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/40" />
 
               {/* Content */}
               <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full h-full flex items-center justify-center">
@@ -148,7 +128,7 @@ export default function HeroBanner() {
                       scale: index === currentSlide ? 1 : 0.9,
                     }}
                     transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-                    className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-4 drop-shadow-2xl"
+                    className="text-4xl md:text-5xl lg:text-6xl font-medium text-white mb-4 drop-shadow-lg tracking-tight"
                   >
                     {slide.title}
                   </motion.h1>
@@ -159,7 +139,7 @@ export default function HeroBanner() {
                       y: index === currentSlide ? 0 : 30,
                     }}
                     transition={{ delay: 0.4, duration: 0.8, ease: "easeOut" }}
-                    className="text-lg md:text-xl lg:text-2xl text-white/95 mb-10 font-light tracking-wide"
+                    className="text-base md:text-lg lg:text-xl text-white/90 mb-8 font-normal tracking-normal"
                   >
                     {slide.subtitle}
                   </motion.p>
@@ -176,7 +156,7 @@ export default function HeroBanner() {
                       <motion.button
                         whileHover={{ scale: 1.08, boxShadow: "0 20px 40px rgba(0,0,0,0.3)" }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-10 py-5 bg-white text-navy-900 rounded-full font-bold text-base md:text-lg shadow-2xl hover:shadow-3xl transition-all flex items-center space-x-3 mx-auto group"
+                        className="px-8 py-4 bg-white text-gray-900 rounded-md font-medium text-sm md:text-base shadow-lg hover:shadow-xl transition-all flex items-center space-x-2 mx-auto group"
                       >
                         <span>{slide.cta}</span>
                         <motion.div
@@ -200,7 +180,7 @@ export default function HeroBanner() {
         onClick={goToPrevious}
         whileHover={{ scale: 1.15, x: -3 }}
         whileTap={{ scale: 0.9 }}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/30"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/30"
         aria-label="Previous slide"
       >
         <ChevronLeft className="w-7 h-7 text-white" />
@@ -209,14 +189,14 @@ export default function HeroBanner() {
         onClick={goToNext}
         whileHover={{ scale: 1.15, x: 3 }}
         whileTap={{ scale: 0.9 }}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-14 h-14 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/30"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-14 h-14 bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full flex items-center justify-center transition-all shadow-2xl border border-white/30"
         aria-label="Next slide"
       >
         <ChevronRight className="w-7 h-7 text-white" />
       </motion.button>
 
       {/* Dots Indicator - Enhanced */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex space-x-3">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex space-x-3">
         {carouselSlides.map((_, index) => (
           <motion.button
             key={index}

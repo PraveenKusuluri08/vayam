@@ -13,7 +13,7 @@ export default function CallToActionSection() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+    <section className="py-10 md:py-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -22,10 +22,10 @@ export default function CallToActionSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-serif font-bold mb-8">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-6 tracking-tight">
             Perfect for Every Occasion
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10 max-w-3xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 max-w-3xl mx-auto">
             {occasions.map((occasion, index) => {
               const Icon = occasion.icon;
               return (
@@ -49,7 +49,7 @@ export default function CallToActionSection() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 gradient-gold text-white rounded-full font-semibold text-base md:text-lg shadow-xl hover:shadow-2xl transition-shadow"
+              className="px-6 py-3 bg-amber-500 text-white rounded-md font-medium text-sm md:text-base shadow-md hover:shadow-lg transition-shadow"
             >
               Shop Now
             </motion.button>

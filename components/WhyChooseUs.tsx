@@ -24,9 +24,9 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <section id="why-vayam" className="py-12 bg-gradient-to-b from-amber-50/30 via-amber-50/20 to-amber-50/40">
+    <section id="why-vayam" className="py-8 md:py-12 border-y border-gray-200/50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon;
             return (

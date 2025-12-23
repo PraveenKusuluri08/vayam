@@ -11,19 +11,19 @@ interface MarqueeProps {
 
 export default function Marquee({
   items,
-  speed = 25,
+  speed = 30,
   direction = "left",
   className = "",
 }: MarqueeProps) {
   // Duplicate items multiple times for seamless loop
-  const duplicatedItems = [...items, ...items, ...items, ...items];
+  const duplicatedItems = [...items, ...items, ...items, ...items, ...items];
 
   return (
-    <div className={`overflow-hidden whitespace-nowrap w-full h-full ${className}`}>
+    <div className={`overflow-hidden whitespace-nowrap w-full ${className}`}>
       <motion.div
-        className="flex items-center h-full"
+        className="flex items-center"
         animate={{
-          x: direction === "left" ? ["0%", "-25%"] : ["-25%", "0%"],
+          x: direction === "left" ? ["0%", "-20%"] : ["-20%", "0%"],
         }}
         transition={{
           x: {
@@ -38,8 +38,8 @@ export default function Marquee({
         {duplicatedItems.map((item, index) => (
           <span
             key={index}
-            className="flex-shrink-0 inline-flex items-center h-full px-6 text-xs font-bold uppercase tracking-wider"
-            style={{ lineHeight: "41px" }}
+            className="flex-shrink-0 inline-flex items-center px-8 text-sm md:text-base font-bold uppercase tracking-wider whitespace-nowrap"
+            style={{ lineHeight: "60px" }}
           >
             {item}
           </span>

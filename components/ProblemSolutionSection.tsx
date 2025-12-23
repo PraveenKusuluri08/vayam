@@ -13,7 +13,7 @@ export default function ProblemSolutionSection() {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-br from-navy-900 to-navy-800 text-white">
+    <section className="py-10 md:py-12 bg-gradient-to-br from-gray-900 to-gray-800 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -22,10 +22,10 @@ export default function ProblemSolutionSection() {
           transition={{ duration: 0.6 }}
           className="text-center"
         >
-          <h2 className="text-2xl md:text-3xl font-serif font-bold mb-6">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-medium mb-6 tracking-tight">
             Premium Corporate Gifting Solutions
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 max-w-4xl mx-auto">
             {solutions.map((solution, index) => (
               <motion.div
                 key={solution}

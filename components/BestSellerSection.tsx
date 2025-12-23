@@ -57,75 +57,41 @@ export default function BestSellerSection() {
   }
 
   return (
-    <section className="py-24 bg-transparent relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-80 h-80 bg-gold-400 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gold-300 rounded-full blur-3xl"></div>
-      </div>
-      
-      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <section className="py-12 md:py-16 relative overflow-hidden bg-transparent">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-8"
         >
-          <motion.div 
-            className="flex items-center justify-center space-x-4 mb-8"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, type: "spring", stiffness: 100 }}
-          >
-            <motion.div
-              animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            >
-              <Star className="w-10 h-10 md:w-12 md:h-12 text-gold-500 fill-gold-500 drop-shadow-lg" />
-            </motion.div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold bg-gradient-to-r from-navy-900 via-navy-800 to-navy-900 bg-clip-text text-transparent">
-              BEST SELLER COLLECTION
-            </h2>
-            <motion.div
-              animate={{ rotate: [0, -10, 10, 0], scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            >
-              <Star className="w-10 h-10 md:w-12 md:h-12 text-gold-500 fill-gold-500 drop-shadow-lg" />
-            </motion.div>
-          </motion.div>
-          
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "180px" }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="h-1.5 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto mb-10 rounded-full"
-          />
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-medium text-gray-900 tracking-tight mb-6">
+            BEST SELLER COLLECTION
+          </h2>
 
-          {/* Enhanced Category Tabs */}
+          {/* Category Tabs - Swashaa Style */}
           <motion.div 
-            className="flex flex-wrap justify-center gap-3 mt-8"
-            initial={{ opacity: 0, y: 20 }}
+            className="flex flex-wrap justify-center gap-2 mb-6"
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.4 }}
           >
             {categories.map((category, idx) => (
               <motion.button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                whileHover={{ scale: 1.05, y: -2 }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 5 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.4 }}
-                className={`px-5 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ${
+                transition={{ delay: idx * 0.03, duration: 0.3 }}
+                className={`px-4 py-1.5 rounded-md text-xs font-semibold uppercase tracking-wider transition-all duration-200 ${
                   selectedCategory === category.id
-                    ? "bg-gradient-to-r from-navy-900 to-navy-800 text-white shadow-xl scale-105"
-                    : "bg-white/80 backdrop-blur-sm text-navy-700 hover:bg-white hover:shadow-lg border border-gray-200"
+                    ? "bg-gray-900 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {category.label}
@@ -139,18 +105,22 @@ export default function BestSellerSection() {
             <p className="text-gray-600">No products available in this category.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8">
-            {products.map((product, index) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <ProductCard product={product} index={index} />
-              </motion.div>
-            ))}
+          <div className={`grid ${
+            selectedCategory === "gold" || selectedCategory === "diamond" || selectedCategory === "silver"
+              ? "grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-14"
+              : "grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6"
+          }`}>
+            {products.map((product, index) => {
+              const isLarge = product.category === "gold" || product.category === "diamond" || product.category === "silver";
+              return (
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  index={index} 
+                  isLarge={isLarge}
+                />
+              );
+            })}
           </div>
         )}
       </div>

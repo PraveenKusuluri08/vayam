@@ -3,6 +3,7 @@ import CategorySection from "@/components/CategorySection";
 import NewArrivalsSection from "@/components/NewArrivalsSection";
 import BestSellerSection from "@/components/BestSellerSection";
 import FeaturedProducts from "@/components/FeaturedProducts";
+import AnimatedOffers from "@/components/AnimatedOffers";
 import WhyChooseUs from "@/components/WhyChooseUs";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import AboutSection from "@/components/AboutSection";
@@ -11,9 +12,12 @@ import CallToActionSection from "@/components/CallToActionSection";
 
 export default function Home() {
   return (
-    <div className="relative">
+    <div className="relative min-h-screen bg-transparent">
       {/* Hero Banner with Carousel */}
       <HeroBanner />
+      
+      {/* Animated Offers Section - Swashaa Style */}
+      <AnimatedOffers />
       
       {/* Category Navigation */}
       <CategorySection />

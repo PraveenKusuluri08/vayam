@@ -35,25 +35,24 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="py-16 bg-gradient-to-b from-amber-50/40 via-amber-50/30 to-amber-50/50">
+    <section className="py-10 md:py-12 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-8"
         >
-          <h2 className="text-4xl md:text-5xl font-serif font-bold text-navy-900 mb-4">
+          <h2 className="text-xl md:text-2xl lg:text-3xl font-medium text-gray-900 mb-2 tracking-tight">
             What Our Clients Say
           </h2>
-          <div className="w-24 h-1 gradient-gold mx-auto mb-6 rounded-full" />
-          <p className="text-xl text-navy-700 max-w-2xl mx-auto">
+          <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
             Trusted by leading businesses across India
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
@@ -62,7 +61,7 @@ export default function TestimonialsSection() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.6 }}
               whileHover={{ y: -10 }}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all border border-gray-100"
+              className="bg-white rounded-lg p-4 md:p-6 shadow-sm hover:shadow-md transition-all border border-gray-100"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex space-x-1">

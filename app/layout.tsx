@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Inter, Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
@@ -21,6 +21,13 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Vayam - Premium Rewards & Incentives in Gold, Diamond & Silver",
   description:
@@ -35,15 +42,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body>
+    <html lang="en" className={`${inter.variable} ${playfair.variable} ${montserrat.variable}`} style={{ backgroundColor: '#FFFBF0', backgroundImage: 'linear-gradient(135deg, #FFFEF9 0%, #FFFBF0 25%, #FFF8E1 50%, #FFF3C4 75%, #FFECB3 100%)', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
+      <body style={{ backgroundColor: '#FFFBF0', backgroundImage: 'linear-gradient(135deg, #FFFEF9 0%, #FFFBF0 25%, #FFF8E1 50%, #FFF3C4 75%, #FFECB3 100%)', backgroundAttachment: 'fixed', minHeight: '100vh' }}>
+        <div 
+          style={{ 
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: '#FFFBF0',
+            backgroundImage: 'linear-gradient(135deg, #FFFEF9 0%, #FFFBF0 25%, #FFF8E1 50%, #FFF3C4 75%, #FFECB3 100%)',
+            zIndex: -999,
+            pointerEvents: 'none'
+          }}
+        />
         <ErrorBoundary>
           <SessionProvider>
             <CartProvider>
               <WishlistProvider>
                 <Navigation />
                 <PromotionalBanner />
-                <main className="min-h-screen pt-[145px] md:pt-[161px]">{children}</main>
+                <main className="min-h-screen relative z-10 pt-[105px] md:pt-[121px] bg-transparent">{children}</main>
                 <Footer />
               </WishlistProvider>
             </CartProvider>
