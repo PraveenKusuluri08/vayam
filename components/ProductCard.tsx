@@ -95,7 +95,7 @@ export default function ProductCard({ product, index, isLarge = false }: Product
             product.category === "silver" 
             ? "border-gray-400/60 shadow-2xl hover:shadow-gray-300/50 hover:border-gray-500 hover:-translate-y-2 h-[520px] md:h-[540px]" :
             "border-gray-200 shadow-xl hover:border-gray-300 hover:-translate-y-2 h-[490px] md:h-[510px]"
-          : "border-gray-100 shadow-xl hover:shadow-2xl hover:border-gray-200 hover:-translate-y-1 h-[380px] md:h-[400px]"
+          : "border-gray-100 shadow-xl hover:shadow-2xl hover:border-gray-200 hover:-translate-y-1 min-h-[380px] md:min-h-[400px]"
       }`}>
         {/* Image Container - Premium Style */}
         <Link href={`/products/${product.id}`} className="flex-shrink-0">
